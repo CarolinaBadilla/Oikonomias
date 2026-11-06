@@ -23,9 +23,19 @@ export default function Home() {
 
   // Protección de Rutas: Redirigir a /login si no existe sesión autenticada
   useEffect(() => {
+    // 1. Redirección normal si AuthContext ya terminó de validar
     if (!isLoading && !isAuthenticated) {
-      router.push("/login");
+      router.replace("/login");
     }
+
+    // 2. Timeout de seguridad: si tras 1.5s sigue 'validando', forzar salida al login
+    const safetyTimer = setTimeout(() => {
+      if (!isAuthenticated) {
+        router.replace("/login");
+      }
+    }, 1500);
+
+    return () => clearTimeout(safetyTimer);
   }, [isLoading, isAuthenticated, router]);
 
   const handleInvoiceSelect = (invoiceData: any) => {

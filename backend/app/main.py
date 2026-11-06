@@ -165,6 +165,9 @@ async def global_exception_handler(request: Request, exc: Exception):
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+        "https://oikonomias.com.ar",
+        "https://www.oikonomias.com.ar",
+        "https://api.oikonomias.com.ar",
         "http://localhost:3000",
         "http://127.0.0.1:3000",
     ],
