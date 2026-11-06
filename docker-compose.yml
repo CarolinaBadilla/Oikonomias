@@ -86,6 +86,8 @@ services:
         NEXT_PUBLIC_API_URL: https://api.oikonomias.com.ar
     container_name: contala_frontend_prod
     restart: always
+    environment:
+      - NEXT_PUBLIC_API_URL=https://api.oikonomias.com.ar
     networks:
       - proxy-net
     depends_on:
