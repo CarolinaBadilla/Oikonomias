@@ -2,7 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  allowedDevOrigins: ["localhost:3000", "127.0.0.1:3000", "127.0.0.1", "localhost"],
+  output: "standalone",
+  allowedDevOrigins: ["oikonomias.com.ar", "localhost", "127.0.0.1"],
   devIndicators: false,
   cacheComponents: true,
   partialPrefetching: true,
