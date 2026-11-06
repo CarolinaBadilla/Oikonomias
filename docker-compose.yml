@@ -44,6 +44,7 @@ services:
       ALLOWED_ORIGINS: "https://oikonomias.com.ar,https://api.oikonomias.com.ar"
       STORAGE_TYPE: local
       UPLOAD_DIR: /app/uploads
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
     volumes:
       - uploads_data_prod:/app/uploads
     networks:
@@ -68,6 +69,7 @@ services:
       REDIS_URL: redis://redis:6379/0
       STORAGE_TYPE: local
       UPLOAD_DIR: /app/uploads
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
     volumes:
       - uploads_data_prod:/app/uploads
     networks:
