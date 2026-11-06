@@ -57,14 +57,14 @@ async def seed_initial_admin():
                 email="admin@contala.com",
                 hashed_password=get_password_hash("Admin123!"),
                 nombre_completo="Administrador ContalA",
-                rol="ADMIN",
+                rol="contador",
                 is_active=True,
                 is_superuser=True,
                 empresa_activa_id=company.id,
             )
             session.add(admin)
             await session.commit()
-            print("✓ Usuario administrador 'admin@contala.com' creado con éxito.")
+            print("✓ Usuario 'admin@contala.com' creado con rol 'contador'.")
 
     await engine.dispose()
     print("Proceso de sembrado finalizado.")
