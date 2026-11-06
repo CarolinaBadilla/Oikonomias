@@ -31,3 +31,9 @@ uploads_data/
 *.swp
 .DS_Store
 Thumbs.db
+
+# Certificados y claves AFIP
+certs-afip/
+*.crt
+*.key
+*.csr
