@@ -159,7 +159,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.removeItem(TOKEN_KEY);
     setToken(null);
     setUser(null);
-    router.push("/login");
+    if (typeof window !== "undefined") {
+      window.location.href = "/login";
+    }
   };
 
   const updateProfile = async (data: {

@@ -21,21 +21,11 @@ export default function Home() {
   const [currentView, setCurrentView] = useState<ViewType>("inicio");
   const [selectedInvoice, setSelectedInvoice] = useState<any>(null);
 
-  // Protección de Rutas: Redirigir a /login si no existe sesión autenticada
+  // Redirección inmediata sin timeouts
   useEffect(() => {
-    // 1. Redirección normal si AuthContext ya terminó de validar
     if (!isLoading && !isAuthenticated) {
       router.replace("/login");
     }
-
-    // 2. Timeout de seguridad: si tras 1.5s sigue 'validando', forzar salida al login
-    const safetyTimer = setTimeout(() => {
-      if (!isAuthenticated) {
-        router.replace("/login");
-      }
-    }, 1500);
-
-    return () => clearTimeout(safetyTimer);
   }, [isLoading, isAuthenticated, router]);
 
   const handleInvoiceSelect = (invoiceData: any) => {
@@ -43,8 +33,8 @@ export default function Home() {
     setCurrentView("comprobantes");
   };
 
-  // Pantalla de carga mientras se valida la sesión persistida
-  if (isLoading) {
+  // Mientras verifica o redirige, mantenemos el fondo claro (#F8FAFC) para evitar la pantalla negra
+  if (isLoading || !isAuthenticated) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#F8FAFC]">
         <div className="flex flex-col items-center gap-3">
@@ -60,25 +50,16 @@ export default function Home() {
     );
   }
 
-  // Si no está autenticado y ya terminó de cargar, retorna null mientras el router redirige
-  if (!isAuthenticated) {
-    return null;
-  }
-
   return (
     <div className="flex min-h-screen bg-[#F8FAFC] font-sans text-slate-900 antialiased">
-      {/* 1. Barra Lateral Fija */}
       <Sidebar
         currentView={currentView}
         setCurrentView={setCurrentView}
       />
 
-      {/* 2. Contenedor Principal con margen izquierdo del ancho del sidebar (w-64) */}
       <div className="flex flex-1 flex-col pl-64">
-        {/* Header Superior Fijo con selector dinámico de empresa y menú de usuario */}
         <TopHeader onNavigate={(view) => setCurrentView(view)} />
 
-        {/* 3. Área de Contenido Dinámico según la vista seleccionada */}
         <main className="flex-1 pb-16">
           {currentView === "inicio" && (
             <HomeUploadView onInvoiceProcessed={handleInvoiceSelect} />
